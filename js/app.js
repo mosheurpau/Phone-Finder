@@ -4,34 +4,53 @@ const searchPhone = () => {
     // clear data
     searchField.value = '';
 
-    const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
+    const searchNull = document.getElementById('search-null');
+    if (searchText == '') {
+        searchNull.style.display = 'block';
+        document.getElementById('search-result').innerHTML = '';
+        document.getElementById('phone-details').innerHTML = '';
+        document.getElementById('search-not-found').innerHTML = '';
 
+    }
+    else {
+        const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
 
-    // Load Data 
-    fetch(url)
-        .then(res => res.json())
-        .then(data => displaySearchResults(data.data));
+        // Load Data 
+        fetch(url)
+            .then(res => res.json())
+            .then(data => displaySearchResults(data.data));
+        searchNull.style.display = 'none';
+    }
 }
 const displaySearchResults = phones => {
     // console.log(phones);
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
-    phones.forEach(phone => {
-        // console.log(phone.image);
-        const div = document.createElement('div');
-        div.classList.add('col');
-        div.innerHTML = `
-        <div class="card h-100 border-0">
-            <img src="${phone.image}" class="card-img-top img-fluid" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">${phone.phone_name}</h5>
-                <p class="card-text">${phone.brand}</p>
-                <button onclick="loadPhoneDetail('${phone.slug}')" >Detail</button>
+
+    if (phones?.length) {
+        phones.forEach(phone => {
+            const div = document.createElement('div');
+            div.classList.add('col');
+            div.innerHTML = `
+            <div class="card h-100 border-0">
+                <img src="${phone.image}" class="card-img-top img-fluid" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${phone.phone_name}</h5>
+                    <p class="card-text">${phone.brand}</p>
+                    <button onclick="loadPhoneDetail('${phone.slug}')" >Detail</button>
+                </div>
             </div>
-        </div>
-        `;
-        searchResult.appendChild(div);
-    })
+            `;
+            searchResult.appendChild(div);
+        })
+        searchNotFound.style.display = 'none';
+    }
+    else {
+        const searchNotFound = document.getElementById('search-not-found');
+        searchNotFound.style.display = 'block';
+
+    }
+
 }
 
 const loadPhoneDetail = phoneId => {
@@ -70,5 +89,6 @@ const displayPhoneDetail = phone => {
 
         </div>
     `;
+    document.getElementById('search-result').innerHTML = '';
     phoneDetails.appendChild(div);
 }
