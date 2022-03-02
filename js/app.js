@@ -1,6 +1,8 @@
+// Spinner display error handling 
 const toggleSpinner = displayStyle => {
     document.getElementById('spinner').style.display = displayStyle;
 }
+// search result display error handling 
 const toggleSearchResult = displayStyle => {
     document.getElementById('search-result').style.display = displayStyle;
 }
@@ -24,8 +26,6 @@ const searchPhone = () => {
         document.getElementById('show-all-btn').style.display = 'none';
         toggleSpinner('none');
 
-
-
     }
     else {
         const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
@@ -45,9 +45,13 @@ const displaySearchResults = phones => {
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
 
+    // phones show Less than or Equal 
     const showPhone = phones.slice(0, 20);
+
+    // chack phones is available
     if (showPhone?.length) {
         showPhone.forEach(phone => {
+            // create cart for Found all phone 
             const div = document.createElement('div');
             div.classList.add('col');
             div.innerHTML = `
@@ -72,6 +76,7 @@ const displaySearchResults = phones => {
         document.getElementById('show-all-btn').style.display = 'block';
 
     }
+    // when search phone is not found error handling  
     else {
         searchNotFound.style.display = 'block';
         document.getElementById('phone-details').innerHTML = '';
@@ -82,7 +87,7 @@ const displaySearchResults = phones => {
 
 }
 
-
+// load data Phone Detail
 const loadPhoneDetail = phoneId => {
     // console.log(phoneId);
     const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
@@ -124,7 +129,7 @@ const displayPhoneDetail = phone => {
     }
     othersInfo();
 
-
+    // cart add for phone Detail
     div.innerHTML = `
         <img src="${phone.image}" class="card-img-top img-fluid" alt="...">
         <div class="card-body">
