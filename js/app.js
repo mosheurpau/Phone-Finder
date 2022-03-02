@@ -11,6 +11,8 @@ const searchPhone = () => {
         document.getElementById('search-result').innerHTML = '';
         document.getElementById('phone-details').innerHTML = '';
         document.getElementById('search-not-found').innerHTML = '';
+        document.getElementById('show-all-phone').style.display = 'none';
+
 
     }
     else {
@@ -30,25 +32,25 @@ const displaySearchResults = phones => {
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
 
-
-
-    if (phones?.length) {
-        phones.forEach(phone => {
+    const showPhone = phones.slice(0, 20);
+    if (showPhone?.length) {
+        showPhone.forEach(phone => {
             const div = document.createElement('div');
             div.classList.add('col');
             div.innerHTML = `
-            <div class="card h-100 border-0">
-                <img src="${phone.image}" class="card-img-top img-fluid" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">${phone.phone_name}</h5>
-                    <p class="card-text">${phone.brand}</p>
-                    <button onclick="loadPhoneDetail('${phone.slug}')" >Detail</button>
-                </div>
-            </div>
-            `;
+                    <div class="card h-100 border-0">
+                        <img src="${phone.image}" class="card-img-top img-fluid" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">${phone.phone_name}</h5>
+                            <p class="card-text">${phone.brand}</p>
+                            <button onclick="loadPhoneDetail('${phone.slug}')" >Detail</button>
+                        </div>
+                    </div>
+                    `;
             searchResult.appendChild(div);
         })
         searchNotFound.style.display = 'none';
+        document.getElementById('show-all-phone').style.display = 'block';
 
     }
     else {
@@ -58,6 +60,7 @@ const displaySearchResults = phones => {
     }
 
 }
+
 
 const loadPhoneDetail = phoneId => {
     // console.log(phoneId);
@@ -76,7 +79,7 @@ const displayPhoneDetail = phone => {
     div.classList.add('card');
 
     // chake relase date
-    function chakeRelaseDate() {
+    const chakeRelaseDate = () => {
         if (phone.releaseDate?.length) {
             return (phone.releaseDate);
         }
@@ -84,6 +87,22 @@ const displayPhoneDetail = phone => {
             return ("Release date is not available.");
         }
     }
+
+    // chake others features and error handle 
+    function othersInfo(features) {
+        if (phone?.hasOwnProperty('others')) {
+            let feature = "";
+            for (let x in features) {
+                feature += `${x}: ${features[x]} `;
+            }
+            return feature;
+        }
+        else {
+            return (' is not available.');
+        }
+    }
+    othersInfo();
+
 
     div.innerHTML = `
         <img src="${phone.image}" class="card-img-top" alt="...">
@@ -96,13 +115,8 @@ const displayPhoneDetail = phone => {
             <p class="card-text"><spen class="fw-bold">ChipSet: </spen> ${phone.mainFeatures.chipSet}</p>
             <p class="card-text"><spen class="fw-bold">Memory: </spen> ${phone.mainFeatures.memory}</p>
             <p class="card-text"><spen class="fw-bold">Sensors: </spen> ${phone.mainFeatures.sensors}</p>
-            <p class="card-text"><spen class="fw-bold">WLAN: </spen> ${phone.others.WLAN}.</p>
-            <p class="card-text"><spen class="fw-bold">Bluetooth: </spen> ${phone.others.Bluetooth}</p>
-            <p class="card-text"><spen class="fw-bold">GPS: </spen> ${phone.others.GPS}</p>
-            <p class="card-text"><spen class="fw-bold">NFC: </spen> ${phone.others.NFC}</p>
-            <p class="card-text"><spen class="fw-bold">Radio: </spen> ${phone.others.Radio}</p>
-            <p class="card-text"><spen class="fw-bold">USB: </spen> ${phone.others.USB}</p>
-
+            <p class="card-text"><spen class="fw-bold">Others features: </spen> ${othersInfo(phone.others)}.</p>
+            
         </div>
     `;
 
