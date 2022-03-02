@@ -4,6 +4,7 @@ const searchPhone = () => {
     // clear data
     searchField.value = '';
 
+    // error handling when search filed null 
     const searchNull = document.getElementById('search-null');
     if (searchText == '') {
         searchNull.style.display = 'block';
@@ -22,10 +23,14 @@ const searchPhone = () => {
         searchNull.style.display = 'none';
     }
 }
+
+const searchNotFound = document.getElementById('search-not-found');
 const displaySearchResults = phones => {
     // console.log(phones);
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
+
+
 
     if (phones?.length) {
         phones.forEach(phone => {
@@ -44,10 +49,11 @@ const displaySearchResults = phones => {
             searchResult.appendChild(div);
         })
         searchNotFound.style.display = 'none';
+
     }
     else {
-        const searchNotFound = document.getElementById('search-not-found');
         searchNotFound.style.display = 'block';
+        document.getElementById('phone-details').innerHTML = '';
 
     }
 
@@ -68,27 +74,38 @@ const displayPhoneDetail = phone => {
     phoneDetails.textContent = '';
     const div = document.createElement('div');
     div.classList.add('card');
+
+    // chake relase date
+    function chakeRelaseDate() {
+        if (phone.releaseDate?.length) {
+            return (phone.releaseDate);
+        }
+        else {
+            return ("Release date is not available.");
+        }
+    }
+
     div.innerHTML = `
         <img src="${phone.image}" class="card-img-top" alt="...">
         <div class="card-body">
             <h3 class="card-title">Phone Name: ${phone.name}</h3>
             <p class="card-text"><spen class="fw-bold">Phone Brand:</spen> ${phone.brand}</p>
-            <p class="card-text"><spen class="fw-bold">Release Date:</spen> ${phone.releaseDate}</p>
+            <p class="card-text"><spen class="fw-bold">Release Date:</spen> ${chakeRelaseDate()} </p>
             <p class="card-text"><spen class="fw-bold">Storage:</spen> ${phone.mainFeatures.storage}</p>
             <p class="card-text"><spen class="fw-bold">Display Size: </spen> ${phone.mainFeatures.displaySize}</p>
             <p class="card-text"><spen class="fw-bold">ChipSet: </spen> ${phone.mainFeatures.chipSet}</p>
             <p class="card-text"><spen class="fw-bold">Memory: </spen> ${phone.mainFeatures.memory}</p>
             <p class="card-text"><spen class="fw-bold">Sensors: </spen> ${phone.mainFeatures.sensors}</p>
-            <p class="card-text"><spen class="fw-bold">Others: </spen> ${phone.others.WLAN}.</p>
+            <p class="card-text"><spen class="fw-bold">WLAN: </spen> ${phone.others.WLAN}.</p>
             <p class="card-text"><spen class="fw-bold">Bluetooth: </spen> ${phone.others.Bluetooth}</p>
             <p class="card-text"><spen class="fw-bold">GPS: </spen> ${phone.others.GPS}</p>
             <p class="card-text"><spen class="fw-bold">NFC: </spen> ${phone.others.NFC}</p>
             <p class="card-text"><spen class="fw-bold">Radio: </spen> ${phone.others.Radio}</p>
             <p class="card-text"><spen class="fw-bold">USB: </spen> ${phone.others.USB}</p>
-            <p class="card-text"><spen class="fw-bold">USB: </spen> ${phone.others.USB}</p>
 
         </div>
     `;
-    document.getElementById('search-result').innerHTML = '';
+
     phoneDetails.appendChild(div);
+
 }
