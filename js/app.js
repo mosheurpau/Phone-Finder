@@ -1,6 +1,16 @@
+const toggleSpinner = displayStyle => {
+    document.getElementById('spinner').style.display = displayStyle;
+}
+const toggleSearchResult = displayStyle => {
+    document.getElementById('search-result').style.display = displayStyle;
+}
+
 const searchPhone = () => {
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
+    // display spinner
+    toggleSpinner('block');
+    toggleSearchResult('none');
     // clear data
     searchField.value = '';
 
@@ -10,8 +20,10 @@ const searchPhone = () => {
         searchNull.style.display = 'block';
         document.getElementById('search-result').innerHTML = '';
         document.getElementById('phone-details').innerHTML = '';
-        document.getElementById('search-not-found').innerHTML = '';
-        document.getElementById('show-all-phone').style.display = 'none';
+        document.getElementById('search-not-found').style.display = 'none';
+        document.getElementById('show-all-btn').style.display = 'none';
+        toggleSpinner('none');
+
 
 
     }
@@ -24,6 +36,7 @@ const searchPhone = () => {
             .then(data => displaySearchResults(data.data));
         searchNull.style.display = 'none';
     }
+
 }
 
 const searchNotFound = document.getElementById('search-not-found');
@@ -49,13 +62,17 @@ const displaySearchResults = phones => {
                     `;
             searchResult.appendChild(div);
         })
+        toggleSpinner('none');
+        toggleSearchResult('flex');
         searchNotFound.style.display = 'none';
-        document.getElementById('show-all-phone').style.display = 'block';
+        document.getElementById('show-all-btn').style.display = 'block';
 
     }
     else {
         searchNotFound.style.display = 'block';
         document.getElementById('phone-details').innerHTML = '';
+        document.getElementById('show-all-btn').style.display = 'none';
+        toggleSpinner('none');
 
     }
 
@@ -93,7 +110,7 @@ const displayPhoneDetail = phone => {
         if (phone?.hasOwnProperty('others')) {
             let feature = "";
             for (let x in features) {
-                feature += `${x}: ${features[x]} `;
+                feature += `<br> ${x}: ${features[x]} `;
             }
             return feature;
         }
@@ -105,7 +122,7 @@ const displayPhoneDetail = phone => {
 
 
     div.innerHTML = `
-        <img src="${phone.image}" class="card-img-top" alt="...">
+        <img src="${phone.image}" class="card-img-top img-fluid" alt="...">
         <div class="card-body">
             <h3 class="card-title">Phone Name: ${phone.name}</h3>
             <p class="card-text"><spen class="fw-bold">Phone Brand:</spen> ${phone.brand}</p>

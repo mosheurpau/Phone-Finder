@@ -5,6 +5,10 @@
     display: none;
 }
 
-#show-all-phone {
+#show-all-btn {
+    display: none;
+}
+
+#spinner {
     display: none;
 }
