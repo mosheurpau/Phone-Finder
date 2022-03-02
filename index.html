@@ -11,18 +11,21 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- css link -->
     <link rel="stylesheet" href="css/style.css">
+    <!-- fontawesome link -->
+    <script src="https://kit.fontawesome.com/de14dc7e14.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body class="container bg-light">
-    <h1 id="title" class="text-center text-success mt-5 mb-3">Phone Finder</h1>
+    <h1 id="title" class="text-center mt-5 mb-3">Phone Finder <span>
+            <img src="images/phone-icon.png" class="img-fluid" alt="..."></span></h1>
 
     <!-- phone search area  -->
     <div id="input-width" class="input-group mb-3 mx-auto">
-        <input id="search-field" type="text" class="form-control shadow-lg p-3 mb-5 bg-body rounde"
+        <input id="search-field" type="text" class="form-control p-3 mb-5 bg-body rounde"
             placeholder="search the phone you want" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <button onclick="searchPhone()" class="btn btn-outline shadow-lg p-3 mb-5 rounded fw-bold" type="button"
-            id="button-addon2">search</button>
+        <button onclick="searchPhone()" class="btn btn-outline p-3 pe-5 mb-5" type="button" id="button-addon2"><i
+                class="fa-solid fa-magnifying-glass"></i></button>
     </div>
 
     <div id="spinner" class="text-center">
