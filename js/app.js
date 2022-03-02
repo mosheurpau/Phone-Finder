@@ -74,6 +74,7 @@ const displaySearchResults = phones => {
         toggleSearchResult('flex');
         searchNotFound.style.display = 'none';
         document.getElementById('show-all-btn').style.display = 'block';
+        document.getElementById('phone-details').innerHTML = '';
 
     }
     // when search phone is not found error handling  
