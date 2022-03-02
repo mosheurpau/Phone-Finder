@@ -17,7 +17,8 @@ body {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 #button-addon2 {
-    color: #0071C6;
+    color: white;
+    background-color: #0071C6;
     font-weight: 700;
     font-size: 1.5rem;
     border-top-right-radius: 50px;
@@ -26,14 +27,30 @@ body {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 #button-addon2:hover {
-    background-color: #0071C6;
-    color: white;
+    background-color: white;
+    color: #0071C6;
 }
 #search-null {
     display: none;
 }
 #search-not-found {
     display: none;
+}
+#show-detail-btn {
+    background-color: #0071C6;
+    color: white;
+    border-radius: 20px;
+    padding: 3px 10px;
+    border: 2px solid #0071C6;    
+}
+#show-detail-btn:hover {
+    background-color: white;
+    color: #0071C6;
+    border: 2px solid #0071C6;
+}
+#phone-cart:hover {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
 }
 
 #show-all-btn {
@@ -58,5 +75,10 @@ body {
     #title {
         font-weight: 700;
         font-size: 3.5rem;
+    }
+    #phone-details {
+        width: 70%;
+        border: 0px;
+        border-radius: 20px;
     }
  }

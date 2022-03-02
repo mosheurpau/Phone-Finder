@@ -51,12 +51,16 @@ const displaySearchResults = phones => {
             const div = document.createElement('div');
             div.classList.add('col');
             div.innerHTML = `
-                    <div class="card h-100 border-0">
+                    <div id ='phone-cart' class="card h-100 border-0">
                         <img src="${phone.image}" class="card-img-top img-fluid" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">${phone.phone_name}</h5>
-                            <p class="card-text">${phone.brand}</p>
-                            <button onclick="loadPhoneDetail('${phone.slug}')" >Detail</button>
+                        <div class="card-body d-flex justify-content-between align-items-end">
+                            <div>
+                                <h5 class="card-title fw-bold">${phone.phone_name}</h5>
+                                <p class="card-text">${phone.brand}</p>
+                            </div>
+                            <div>
+                                <button id ='show-detail-btn' onclick="loadPhoneDetail('${phone.slug}')" >Show Detail</button>
+                            </div>
                         </div>
                     </div>
                     `;
@@ -124,7 +128,7 @@ const displayPhoneDetail = phone => {
     div.innerHTML = `
         <img src="${phone.image}" class="card-img-top img-fluid" alt="...">
         <div class="card-body">
-            <h3 class="card-title">Phone Name: ${phone.name}</h3>
+            <h3 class="card-title fw-bold">Phone Name: ${phone.name}</h3>
             <p class="card-text"><spen class="fw-bold">Phone Brand:</spen> ${phone.brand}</p>
             <p class="card-text"><spen class="fw-bold">Release Date:</spen> ${chakeRelaseDate()} </p>
             <p class="card-text"><spen class="fw-bold">Storage:</spen> ${phone.mainFeatures.storage}</p>
@@ -135,6 +139,7 @@ const displayPhoneDetail = phone => {
             <p class="card-text"><spen class="fw-bold">Others features: </spen> ${othersInfo(phone.others)}.</p>
             
         </div>
+  
     `;
 
     phoneDetails.appendChild(div);
